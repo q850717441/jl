@@ -8,3 +8,5 @@
 out
 gen
 jl.iml
+jl-manage/target
+jl-common/target

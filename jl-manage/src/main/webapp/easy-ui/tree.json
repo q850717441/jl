@@ -21,9 +21,13 @@
 			{
 				"id":"8",
 				"text":"孙悟空"
+			},
+			{
+				"id":"9",
+				"text":"龚玲博"
 			}
 		],
-		"state":"open"
+		"state":"closed"
 	},{
 		"id":"2",
 		"text":"王者荣耀",
@@ -42,7 +46,7 @@
 				"text":"典韦"
 			}
 		],
-		"state":"closed"
+		"state":"open"
 	},
 	{
 		"id":"3",

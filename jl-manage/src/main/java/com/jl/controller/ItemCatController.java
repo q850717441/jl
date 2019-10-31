@@ -1,11 +1,14 @@
 package com.jl.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.jl.pojo.ItemCat;
 import com.jl.service.ItemCatService;
+import com.jl.vo.EasyUITree;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/item/cat")
@@ -27,4 +30,20 @@ public class ItemCatController {
 		//2.将对象中的name名称获取
 		return itemCat.getName();
 	}
+	/**
+	 *      获取商品分类列表信息
+	 *  url:/item/cat/list
+	 *      返回值: EasyUITree
+	 *
+	 *  @RequestParam 获取参数实现数据的转化
+	 */
+	@RequestMapping("/list")
+	public List<EasyUITree> findItemCatByParentId
+	(@RequestParam(value = "id",defaultValue = "0")
+			 Long parentId){
+
+		return itemCatService.findItemCatByParentId(parentId);
+	}
+
+
 }

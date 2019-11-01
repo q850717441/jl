@@ -33,7 +33,6 @@ public class ItemController {
      */
     @RequestMapping("/save")
     public SysResult saveItem(Item item) {
-
         itemService.saveItem(item);
         return SysResult.success();
     }
@@ -43,7 +42,6 @@ public class ItemController {
      */
     @RequestMapping("/update")
     public SysResult updateItem(Item item) {
-
         itemService.updateItem(item);
         return SysResult.success();
     }

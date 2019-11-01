@@ -39,9 +39,7 @@ public class ItemCatServiceImpl implements ItemCatService {
 			EasyUITree tree = new EasyUITree(id,text,state);
 			treeList.add(tree);
 		}
-
 		return treeList;
-
 	}
 	private List<ItemCat> findItemCatListByParentId(Long parentId) {
 		QueryWrapper<ItemCat> queryWrapper = new QueryWrapper<>();
@@ -50,5 +48,4 @@ public class ItemCatServiceImpl implements ItemCatService {
 				itemCatMapper.selectList(queryWrapper);
 		return itemCatList;
 	}
-
 }

@@ -10,6 +10,7 @@ import com.jl.vo.EasyUITable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void saveItem(Item item) {
-
         item.setStatus(1)    //表示正常状态
                 .setCreated(new Date())
                 .setUpdated(item.getCreated());
@@ -88,6 +88,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItem(Long[] ids) {
+
         for (Long id : ids) {
             itemMapper.deleteById(id);
         }

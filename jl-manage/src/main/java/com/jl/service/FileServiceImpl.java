@@ -1,6 +1,8 @@
 package com.jl.service;
 
 import com.jl.vo.EasyUIFile;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,10 +14,17 @@ import java.util.Date;
 import java.util.UUID;
 
 
-@Service 
+@Service
+@PropertySource("classpath:/properties/image.properties")
+//@PropertySources({@PropertySource("classpath:/properties/image.properties")})
 public class FileServiceImpl implements FileService {
 	
-	private String localDir = "D:/JT-SOFTWARE/images/";
+	//动态获取属性值 将数据信息写入properties文件中
+	//取值前提: spring容器必须管理配置文件
+	@Value("${image.localDir}")
+	private String localDir; //= "D:/JT-SOFTWARE/images/";
+	@Value("${image.localDirUrl}")
+	private String localDirUrl;// = "http://image.jt.com/";
 	
 	/**
 	 * 	
@@ -75,10 +84,15 @@ public class FileServiceImpl implements FileService {
 			uploadFile.transferTo
 					(new File(fileDirPath+realFileName));
 			
+			
+			//定义url虚拟地址   http://image.jt.com/yyyy/MM/dd/abc.jpg
+			String url = localDirUrl + dateDir + realFileName;
+			
+			
 			//暂时使用网络地址代替真是url地址.
 			easyUIFile.setWidth(width)
 					  .setHeight(height)
-					  .setUrl("https://img14.360buyimg.com/n0/jfs/t1/81541/28/10612/304749/5d7f5f1dE03dfb7e1/c23ead253c54954a.jpg");
+					  .setUrl(url);
 			
 			
 			

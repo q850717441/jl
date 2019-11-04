@@ -79,7 +79,7 @@ public class FileServiceImpl implements FileService {
             uploadFile.transferTo
                     (new File(fileDirPath + realFileName));
 
-            //定义url虚拟地址   http://image.jt.com/yyyy/MM/dd/abc.jpg
+            //定义url虚拟地址   http://image.jl.com/yyyy/MM/dd/abc.jpg
             String url = localDirUrl + dateDir + realFileName;
 
             //暂时使用网络地址代替真是url地址.

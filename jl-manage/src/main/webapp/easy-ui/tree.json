@@ -2,7 +2,6 @@
 	{
 		"id":"1",
 		"text":"英雄联盟",
-		"iconCls":"icon-save",
 		"children":[
 			{
 				"id":"4",
@@ -21,10 +20,6 @@
 			{
 				"id":"8",
 				"text":"孙悟空"
-			},
-			{
-				"id":"9",
-				"text":"龚玲博"
 			}
 		],
 		"state":"closed"
@@ -46,7 +41,7 @@
 				"text":"典韦"
 			}
 		],
-		"state":"open"
+		"state":"closed"
 	},
 	{
 		"id":"3",

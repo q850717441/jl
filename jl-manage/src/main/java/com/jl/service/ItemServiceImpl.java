@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-	
+
 	@Autowired
 	private ItemMapper itemMapper;
 	@Autowired
@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
 	/*
 	 * 1.查询商品总记录数
 	 * 2.进行分页查询
-	 *   
+	 *
 	 *   分页sql:  每页20条
 	 *   第1页                                                    起始位置,展现条数
 	 * 	 select * from tb_item limit 0,20 	 [0,19]
@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
 	 *   select * from tb_item limit 40,20 	 [40,59]
 	 *    第N页
 	 *   select * from tb_item order by updated limit (page-1)*rows,rows
-	 *   
+	 *
 	 * mybatis-plus分页说明
 	 * 1.new Page<>(current, size);
 	 * 	 current:当前页数
@@ -46,17 +46,17 @@ public class ItemServiceImpl implements ItemService {
 	 */
 	@Override
 	public EasyUITable findItemByPage(Integer page, Integer rows) {
-		
+
 		//int total = itemMapper.selectCount(null);
 		//int start = (page - 1) * rows;
-		//List<Item> userList = 
+		//List<Item> userList =
 				//itemMapper.findItemByPage(start,rows);
-		
+
 		Page<Item> tempPage = new Page<>(page, rows);
 		QueryWrapper<Item> queryWrapper = new QueryWrapper<Item>();
 		queryWrapper.orderByDesc("updated");
 		//当前查询的分页结果对象
-		IPage<Item> IPage = 
+		IPage<Item> IPage =
 				itemMapper.selectPage(tempPage, queryWrapper);
 		//获取总记录数
 		int total = (int) IPage.getTotal();
@@ -65,15 +65,15 @@ public class ItemServiceImpl implements ItemService {
 		return new EasyUITable(total, userList);
 	}
 
-	
+
 	/**
 	 * 实现2张表同时入库
-	 * 
+	 *
 	 */
 	@Override
 	@Transactional	//事务控制
 	public void saveItem(Item item, ItemDesc itemDesc) {
-		
+
 		item.setStatus(1)	//表示正常状态
 			.setCreated(new Date())
 			.setUpdated(item.getCreated());
@@ -89,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	@Transactional	//控制事物
 	public void updateItem(Item item,ItemDesc itemDesc) {
-		
+
 		item.setUpdated(new Date());
 		itemMapper.updateById(item);
 		//所有数据都更新.
@@ -98,23 +98,23 @@ public class ItemServiceImpl implements ItemService {
 		itemDescMapper.updateById(itemDesc);
 	}
 
-	
+
 	/**
 	 * 任务:将ids中所有的数据的状态status改为2
 	 */
 	@Override
 	public void updateStatus(Long[] ids, Integer status) {
-	
+
 		//1.小白级别
 		/*
-		 * for (Long id : ids) { 
-		 * Item item = new Item(); 
+		 * for (Long id : ids) {
+		 * Item item = new Item();
 		 * item.setId(id)
-		 * .setStatus(status) .setUpdated(new Date()); 
-		 * itemMapper.updateById(item); 
+		 * .setStatus(status) .setUpdated(new Date());
+		 * itemMapper.updateById(item);
 		 * }
 		 */
-		
+
 		//2.菜鸟级别  sql
 		Item item = new Item();
 		item.setStatus(status).setUpdated(new Date());
@@ -136,17 +136,17 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemDesc findItemDescById(Long itemId) {
-		
+
 		return itemDescMapper.selectById(itemId);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 }

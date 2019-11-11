@@ -46,6 +46,6 @@ public class ItemCatController {
 	@RequestMapping("/list")
 	public List<EasyUITree> findItemCatByParentId(@RequestParam(value = "id",defaultValue = "0") Long parentId){
 		//先查询缓存,如果缓存中没有数据,则查询数据库
-		return itemCatService.findItemCatCache(parentId);
+		return itemCatService.findItemCatByParentId(parentId);
 	}
 }

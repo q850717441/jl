@@ -9,13 +9,13 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 @Component    //将类交给容器管理
 @Aspect        //标识切面
 public class CacheAspect {
     @Autowired
-    private Jedis jedis;
+    private JedisCluster jedis;
 
     //如果是环绕通知,则参数必须写ProceedingJoinPoint,必须位于第一位
     @Around("@annotation(cacheFind)")

@@ -1,6 +1,7 @@
 package com.jl.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jl.anno.CacheFind;
 import com.jl.mapper.ItemCatMapper;
 import com.jl.pojo.ItemCat;
 import com.jl.util.ObjectMapperUtil;
@@ -8,7 +9,7 @@ import com.jl.vo.EasyUITree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class ItemCatServiceImpl implements ItemCatService {
     @Autowired()
     private ItemCatMapper itemCatMapper;
     @Autowired
-    private Jedis jedis;
+    private JedisCluster jedis;
 
     @Override
     public ItemCat findItemCatById(Long itemCatId) {
@@ -33,6 +34,7 @@ public class ItemCatServiceImpl implements ItemCatService {
      * 2.循环遍历数据,之后封装EasyUITree的list集合
      */
     @Override
+    @CacheFind
     public List<EasyUITree> findItemCatByParentId(Long parentId) {
         //1.查询数据
         List<ItemCat> itemCatList =

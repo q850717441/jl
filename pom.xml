@@ -5,6 +5,7 @@
     <modules>
         <module>jl-common</module>
         <module>jl-manage</module>
+        <module>jl-web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

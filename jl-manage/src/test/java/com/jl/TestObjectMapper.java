@@ -1,4 +1,4 @@
-package com.jt;
+package com.jl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jl.pojo.ItemDesc;

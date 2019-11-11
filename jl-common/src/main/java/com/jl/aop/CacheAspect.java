@@ -14,7 +14,7 @@ import redis.clients.jedis.JedisCluster;
 @Component    //将类交给容器管理
 @Aspect        //标识切面
 public class CacheAspect {
-    @Autowired
+    @Autowired(required = false)
     private JedisCluster jedis;
 
     //如果是环绕通知,则参数必须写ProceedingJoinPoint,必须位于第一位

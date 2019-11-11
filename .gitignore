@@ -5,8 +5,7 @@
 # IntelliJ project files
 .idea
 *.iml
-out
-gen
 jl.iml
 jl-manage/target
 jl-common/target
+jl-web/target

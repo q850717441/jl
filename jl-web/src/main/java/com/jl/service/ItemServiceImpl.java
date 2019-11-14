@@ -6,6 +6,7 @@ import com.jl.pojo.ItemDesc;
 import com.jl.util.HttpClientService;
 import com.jl.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @create: 2019-11-14 08:42
  * @description:
  **/
+@Service
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private HttpClientService httpClient;

@@ -1,6 +1,11 @@
 package com.jl.controller;
 
+import com.jl.pojo.Item;
+import com.jl.pojo.ItemDesc;
+import com.jl.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,9 +18,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/items/")
 public class ItemController {
-    @RequestMapping("{itemId}")
-    public String toItems(@PathVariable long itemId){
-        System.out.println("当前商品ID:"+itemId);
-        return "item";
+    //jl-web服务器
+
+    @Autowired
+    private ItemService itemService;
+
+    //${item.title }
+    //${itemDesc.itemDesc} 获取商品详情信息
+    @RequestMapping("/{itemId}")
+    public String toItems(@PathVariable Long itemId,Model model) {
+        //根据商品ID号查询后台商品数据
+        Item item = itemService.findItemById(itemId);
+        model.addAttribute("item", item);
+        ItemDesc itemDesc = itemService.findItemDescById(itemId);
+        model.addAttribute("itemDesc", itemDesc);
+        return "item"; //动态的商品展现页面
     }
 }

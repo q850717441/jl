@@ -19,6 +19,7 @@ public class DubboUserServiceImpl implements DubboUserService {
     @Autowired
     private UserMapper userMapper;
 
+
     /**
      * 1.避免后台数据库报错,暂时使用手机代替
      * 2.使用MD5加密算法  32位16进制字符串=2^128次

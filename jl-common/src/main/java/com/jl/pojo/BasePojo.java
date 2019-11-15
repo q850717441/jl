@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 @Accessors(chain=true)
 public class BasePojo implements Serializable{
+	private static final long serialVersionUID = 5658190476955525253L;
 	private Date created;
 	private Date updated;
 

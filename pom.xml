@@ -123,7 +123,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
-    </dependencies>
+
+        <!--引入dubbo配置-->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>0.2.0</version>
+        </dependency></dependencies>
 
     <!--父级项目中 不要添加插件  -->
 

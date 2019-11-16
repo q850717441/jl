@@ -1,12 +1,16 @@
 package com.jl.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jl.mapper.UserMapper;
 import com.jl.pojo.User;
+import com.jl.util.ObjectMapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
+import redis.clients.jedis.JedisCluster;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @program: jl
@@ -18,6 +22,8 @@ import java.util.Date;
 public class DubboUserServiceImpl implements DubboUserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private JedisCluster jedisCluster;
 
 
     /**
@@ -37,5 +43,44 @@ public class DubboUserServiceImpl implements DubboUserService {
                 .setCreated(new Date())
                 .setUpdated(user.getCreated());
         userMapper.insert(user);
+
+    }
+
+    /**
+     * 1.返回值数据  返回加密后的秘钥
+     * 2.校验用户信息是否有效 如果无效返回null
+     * 3.如果用户密码正确.则将用户信息保存redis中
+     */
+    @Override
+    public String findUserByUP(User user, String ip) {
+        //1.将密码进行加密
+        String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        user.setPassword(md5Pass);
+
+        //2.根据用户信息查询数据库
+        //根据对象中不为null的属性当做where条件
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>(user);
+        User userDB = userMapper.selectOne(queryWrapper);
+        if (userDB == null) {
+
+            return null;
+        }
+
+        //如果程序执行到这里说明用户名和密码正确.
+
+        //3.动态生成ticket
+        String uuid = UUID.randomUUID().toString();
+        String ticket = DigestUtils.md5DigestAsHex(uuid.getBytes());
+        //4.为了数据安全性一般会将重要数据进行脱敏处理
+        //将user对象转化为JSON
+        userDB.setPassword("123456你信吗?????");
+        String userJSON = ObjectMapperUtil.toJSON(userDB);
+
+        //5.将数据保存到redis中
+        jedisCluster.hset(ticket, "JT_USER", userJSON);
+        jedisCluster.hset(ticket, "JT_USER_IP", ip);
+        jedisCluster.expire(ticket, 7 * 24 * 3600);
+
+        return ticket;
     }
 }

@@ -11,4 +11,6 @@ import com.jl.pojo.User;
 public interface DubboUserService {
 
     void insertUser(User user);
+
+    String findUserByUP(User user, String ip);
 }

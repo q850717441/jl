@@ -1,6 +1,6 @@
 var TT = JT = {
 	checkLogin : function(){
-		var _ticket = $.cookie("JT_TICKET");
+		var _ticket = $.cookie("JL_TICKET");
 		if(!_ticket){
 			return ;
 		}

@@ -10,7 +10,7 @@ var TTCart = {
                 TTCart.refreshTotalPrice();
             });
         });
-        $(".decrement").click(function () {//-
+        $(".decrement").click(function () {
             var _thisInput = $(this).siblings("input");
             if (eval(_thisInput.val()) == 1) {
                 return;

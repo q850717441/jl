@@ -33,7 +33,6 @@ public class DubboCartServiceImpl implements DubboCartService {
      * where user_id=#{userId}
      * and item_id = #{itemId}
      */
-
     @Override
     public void updateCartNum(Cart cart) {
         Cart cartTemp = new Cart();
@@ -43,5 +42,35 @@ public class DubboCartServiceImpl implements DubboCartService {
         updateWrapper.eq("user_id", cart.getUserId())
                 .eq("item_id", cart.getItemId());
         cartMapper.update(cartTemp, updateWrapper);
+    }
+
+    @Override
+    public void deleteCart(Cart cart) {
+        cartMapper.delete(new QueryWrapper<Cart>(cart));
+    }
+
+    /**
+     * 新增购物车
+     * 1.根据userId和itemId查询数据库
+     * 有数据: 数量的更新
+     * 无数据:	新增入库
+     */
+
+    @Override
+    public void insertCart(Cart cart) {
+        QueryWrapper<Cart> quryWrapper = new QueryWrapper<>();
+        quryWrapper.eq("user_id", cart.getUserId()).eq("item_id", cart.getItemId());
+        Cart cartDB = cartMapper.selectOne(quryWrapper);
+        if (cartDB == null) {
+            cart.setCreated(new Date()).setUpdated(cart.getCreated());
+            cartMapper.insert(cart);
+        } else {
+            //数量更新 update tb_cart set num=#{num},updated = #{updated}
+            //where id = #{id}
+            int num = cart.getNum() + cartDB.getNum();
+            Cart cartTemp = new Cart();
+            cartTemp.setId(cartDB.getId()).setNum(num).setUpdated(new Date());
+            cartMapper.updateById(cartTemp);
+        }
     }
 }

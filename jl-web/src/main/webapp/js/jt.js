@@ -13,7 +13,7 @@ var TT = JT = {
 				if(data.status == 200){
 					//把json串转化为js对象
 					var _data = JSON.parse(data.data);
-					var html =_data.username+"，欢迎来到京淘！<a href=\"http://www.jl.com/user/logout.html\" class=\"link-logout\">[退出]</a>";
+					var html =_data.username+"，欢迎来到精灵！<a href=\"http://www.jl.com/user/logout.html\" class=\"link-logout\">[退出]</a>";
 					$("#loginbar").html(html);
 				}
 			}

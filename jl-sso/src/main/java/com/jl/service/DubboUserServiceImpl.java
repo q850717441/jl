@@ -76,9 +76,10 @@ public class DubboUserServiceImpl implements DubboUserService {
         userDB.setPassword("123456你信吗?????");
         String userJSON = ObjectMapperUtil.toJSON(userDB);
 
+
         //5.将数据保存到redis中
-        jedisCluster.hset(ticket, "JT_USER", userJSON);
-        jedisCluster.hset(ticket, "JT_USER_IP", ip);
+        jedisCluster.hset(ticket, "JL_USER", userJSON);
+        jedisCluster.hset(ticket, "JL_USER_IP", ip);
         jedisCluster.expire(ticket, 7 * 24 * 3600);
 
         return ticket;
